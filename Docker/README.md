@@ -30,23 +30,30 @@ docker run -p 3000:3000 messages-app
 
   docker build -t my-image .
 
+- docker run - Runs a Docker image.
 
-docker run - Runs a Docker image.
+  docker run my-image
+
+- docker image ls - Lists all Docker images on the local machine.
+
+  docker image ls
+
+- docker image rm - Removes a Docker image from the local machine.
+
+  docker image rm my-image
 
 
-docker run my-image
+- docker container ls - Lists all Docker containers on the local machine.
 
+  docker container ls
 
-docker image ls - Lists all Docker images on the local machine.
-docker image ls
-docker image rm - Removes a Docker image from the local machine.
-docker image rm my-image
-docker container ls - Lists all Docker containers on the local machine.
-docker container ls
-docker container rm - Removes a Docker container from the local machine.
-docker container rm my-container
-docker ps - Lists all running Docker containers on the local machine.
-docker ps
+- docker container rm - Removes a Docker container from the local machine.
+
+  docker container rm my-container
+
+- docker ps - Lists all running Docker containers on the local machine.
+
+  docker ps
 docker stop - Stops a running Docker container.
 docker stop my-container
 docker start - Starts a stopped Docker container.
