@@ -54,20 +54,34 @@ docker run -p 3000:3000 messages-app
 - docker ps - Lists all running Docker containers on the local machine.
 
   docker ps
-docker stop - Stops a running Docker container.
-docker stop my-container
-docker start - Starts a stopped Docker container.
-docker start my-container
-docker exec - Executes a command inside a running Docker container.
-docker exec my-container ls -la
-docker attach - Attaches to a running Docker container.
-docker attach my-container
-docker commit - Creates a new Docker image from a running Docker container.
-docker commit my-container my-new-image
-docker push - Pushes a Docker image to a remote Docker registry.
-docker push my-image my-registry.example.com/my-image
-docker pull - Pulls a Docker image from a remote Docker registry.
-docker pull my-registry.example.com/my-image
+
+- docker stop - Stops a running Docker container.
+
+  docker stop my-container
+
+- docker start - Starts a stopped Docker container.
+
+  docker start my-container
+
+- docker exec - Executes a command inside a running Docker container.
+
+  docker exec my-container ls -la
+
+- docker attach - Attaches to a running Docker container.
+
+  docker attach my-container
+
+- docker commit - Creates a new Docker image from a running Docker container.
+
+  docker commit my-container my-new-image
+
+- docker push - Pushes a Docker image to a remote Docker registry.
+
+  docker push my-image my-registry.example.com/my-image
+
+- docker pull - Pulls a Docker image from a remote Docker registry.
+
+  docker pull my-registry.example.com/my-image
 
 
 
