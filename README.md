@@ -1,5 +1,7 @@
 # DevOps-On-AWS
 
+## Add SSH Keys to GitHub
+
 Here's a step-by-step guide on how to add SSH keys to your GitHub account:
 
 1. **Generate SSH Key**: If you haven't already, you need to generate an SSH key pair. Open a terminal or command prompt and enter the following command, replacing `<your_email@example.com>` with your GitHub-associated email:
@@ -37,3 +39,34 @@ Here's a step-by-step guide on how to add SSH keys to your GitHub account:
    If successful, you'll see a message confirming that you've authenticated.
 
 Now your SSH key is added to your GitHub account, and you can use it to securely interact with GitHub repositories.
+
+## AWS
+
+- AWS CLI get account details
+
+  To get details about your AWS account using the AWS CLI, you can use the `aws sts get-caller-identity` command. This command returns details about the IAM identity used to make the request, including the AWS account ID, IAM user ID, and ARN (Amazon Resource Name).
+
+Here's how you can use it:
+
+```bash
+aws sts get-caller-identity
+```
+
+This command will return JSON output containing information about the IAM identity associated with your AWS CLI credentials, including the account ID.
+
+Example output:
+
+```json
+{
+    "UserId": "AROAEXAMPLEID",
+    "Account": "123456789012",
+    "Arn": "arn:aws:iam::123456789012:user/example-user"
+}
+```
+
+In the output:
+- `"UserId"` is the IAM user ID.
+- `"Account"` is the AWS account ID.
+- `"Arn"` is the ARN of the IAM user.
+
+You can use this information to identify your AWS account.
