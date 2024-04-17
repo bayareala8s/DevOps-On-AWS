@@ -50,4 +50,38 @@ Here's how you can do it using the AWS CLI:
 
 After running these commands, your local Docker image will be pushed to your AWS ECR repository. You can verify the image in the AWS Management Console or by using the AWS CLI.
 
+- AWS ECR list images within a Repository
+
+  To list the images within an AWS ECR (Elastic Container Registry) repository using the AWS CLI, you can use the `describe-images` command. Here's the syntax:
+
+```bash
+aws ecr describe-images --repository-name <repository-name>
+```
+
+Replace `<repository-name>` with the name of your ECR repository.
+
+If you want to list images in a specific region, you can specify the `--region` option:
+
+```bash
+aws ecr describe-images --repository-name <repository-name> --region <region>
+```
+
+Replace `<region>` with the AWS region where your ECR repository is located.
+
+Here's an example of listing images within a repository named `my-ecr-repo`:
+
+```bash
+aws ecr describe-images --repository-name my-ecr-repo
+```
+
+This command will return JSON output containing information about the images in the specified repository, including their tags and other details.
+
+You can also use filters to narrow down the results. For example, to list images with a specific tag, you can use the `--query` option:
+
+```bash
+aws ecr describe-images --repository-name my-ecr-repo --query 'imageDetails[*].{ImageTags: imageTags}'
+```
+
+This command will return only the image tags for each image in the repository. Adjust the query as needed to retrieve specific information about the images.
+
   
