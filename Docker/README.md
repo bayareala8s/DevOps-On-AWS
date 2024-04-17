@@ -29,9 +29,17 @@ docker run -p 3000:3000 messages-app
 Important Docker commands with examples
 
 docker build - Builds a Docker image from a Dockerfile.
+
+
 docker build -t my-image .
+
+
 docker run - Runs a Docker image.
+
+
 docker run my-image
+
+
 docker image ls - Lists all Docker images on the local machine.
 docker image ls
 docker image rm - Removes a Docker image from the local machine.
