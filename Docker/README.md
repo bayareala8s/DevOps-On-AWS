@@ -26,7 +26,7 @@ docker run -p 3000:3000 messages-app
 
 ### List of all important Docker commands with examples:
 
-- [*] docker build - Builds a Docker image from a Dockerfile.
+- docker build - Builds a Docker image from a Dockerfile.
 
 docker build -t my-image .
 
