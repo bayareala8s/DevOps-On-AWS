@@ -28,6 +28,7 @@ docker run -p 3000:3000 messages-app
 
   <image-name>:<major>.<minor>.<patch>-<environment>-<timestamp>-<commit-SHA>
 
+```bash
 #!/bin/bash
 
 # Get the image name from the first argument.
