@@ -63,7 +63,7 @@ docker push ${IMAGE_NAME}:${VERSION}-${ENVIRONMENT}-${TIMESTAMP}-${COMMIT_SHA}
 
 - docker run - Runs a Docker image.
 
-  docker run my-image
+  docker run --name my-container my-image
 
 - docker image ls - Lists all Docker images on the local machine.
 
