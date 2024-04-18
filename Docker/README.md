@@ -24,6 +24,35 @@ docker build -t messages-app:1.0.0-dev-commit-SHA .
 
 docker run -p 3000:3000 messages-app
 
+### Bash script that will create a Docker image with the following naming convention:
+
+  <image-name>:<major>.<minor>.<patch>-<environment>-<timestamp>-<commit-SHA>
+
+#!/bin/bash
+
+# Get the image name from the first argument.
+IMAGE_NAME=$1
+
+# Get the major, minor, and patch version numbers from the second argument.
+VERSION=$2
+
+# Get the environment from the third argument.
+ENVIRONMENT=$3
+
+# Get the commit SHA from the fourth argument.
+COMMIT_SHA=$4
+
+# Get the current timestamp.
+TIMESTAMP=$(date +%Y%m%d%H%M%S)
+
+# Build the Docker image.
+docker build -t ${IMAGE_NAME}:${VERSION}-${ENVIRONMENT}-${TIMESTAMP}-${COMMIT_SHA} .
+
+# Push the Docker image to the registry.
+docker push ${IMAGE_NAME}:${VERSION}-${ENVIRONMENT}-${TIMESTAMP}-${COMMIT_SHA}
+
+
+
 ### List of all important Docker commands with examples:
 
 - docker build - Builds a Docker image from a Dockerfile.
