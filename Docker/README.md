@@ -26,7 +26,7 @@ docker run -p 3000:3000 messages-app
 
 ### Bash script that will create a Docker image with the following naming convention:
 
-<image-name>:<major>.<minor>.<patch>-<environment>-<timestamp>-<commit-SHA>
+- <image-name>:<major>.<minor>.<patch>-<environment>-<timestamp>-<commit-SHA>
 
 ```bash
 #!/bin/bash
@@ -44,13 +44,14 @@ ENVIRONMENT=$3
 COMMIT_SHA=$4
 
 # Get the current timestamp.
-TIMESTAMP=$(date +%Y%m%d%H%M%S)
+TIMESTAMP=$(date +%Y-%m-%d-%H-%M)
 
 # Build the Docker image.
 docker build -t ${IMAGE_NAME}:${VERSION}-${ENVIRONMENT}-${TIMESTAMP}-${COMMIT_SHA} .
 
 # Push the Docker image to the registry.
 docker push ${IMAGE_NAME}:${VERSION}-${ENVIRONMENT}-${TIMESTAMP}-${COMMIT_SHA}
+
 ```
 
 
