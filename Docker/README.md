@@ -26,7 +26,7 @@ docker run -p 3000:3000 messages-app
 
 ### Bash script that will create a Docker image with the following naming convention:
 
-  <image-name>:<major>.<minor>.<patch>-<environment>-<timestamp>-<commit-SHA>
+<image-name>:<major>.<minor>.<patch>-<environment>-<timestamp>-<commit-SHA>
 
 ```bash
 #!/bin/bash
@@ -51,7 +51,7 @@ docker build -t ${IMAGE_NAME}:${VERSION}-${ENVIRONMENT}-${TIMESTAMP}-${COMMIT_SH
 
 # Push the Docker image to the registry.
 docker push ${IMAGE_NAME}:${VERSION}-${ENVIRONMENT}-${TIMESTAMP}-${COMMIT_SHA}
-
+```
 
 
 ### List of all important Docker commands with examples:
