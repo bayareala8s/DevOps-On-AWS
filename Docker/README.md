@@ -31,26 +31,91 @@ docker run -p 3000:3000 messages-app
 ```bash
 #!/bin/bash
 
+# Get the container name from the first argument.
+CONTAINER_NAME=$1
+
 # Get the image name from the first argument.
-IMAGE_NAME=$1
+IMAGE_NAME=$2
 
 # Get the major, minor, and patch version numbers from the second argument.
-VERSION=$2
+VERSION=$3
 
 # Get the environment from the third argument.
-ENVIRONMENT=$3
+ENVIRONMENT=$4
 
 # Get the commit SHA from the fourth argument.
-COMMIT_SHA=$4
+COMMIT_SHA=$5
 
 # Get the current timestamp.
 TIMESTAMP=$(date +%Y-%m-%d-%H-%M)
 
+echo "Container name: $CONTAINER_NAME"
+echo "Image name: $IMAGE_NAME"
+echo "Version: $VERSION"
+echo "Environment: $ENVIRONMENT"
+echo "Commit SHA: $COMMIT_SHA"
+echo "Timestamp: $TIMESTAMP"
+
+# Check if the container exists
+if docker ps -a --format '{{.Names}}' | grep -Eq "^$CONTAINER_NAME$"; then
+    # Container exists, so remove it
+    docker rm -f "$CONTAINER_NAME"
+    echo "Container $CONTAINER_NAME removed."
+else
+    echo "Container $CONTAINER_NAME does not exist."
+fi
+
+# Define the image name pattern
+IMAGE_PATTERN="$IMAGE_NAME:*"
+echo "Image pattern: $IMAGE_PATTERN"
+
+# Check if any images match the pattern
+if docker image inspect $(docker images -q --filter=reference="$IMAGE_PATTERN") &> /dev/null; then
+    # Images exist, so remove them
+    docker rmi -f $(docker images -q --filter=reference="$IMAGE_PATTERN")
+    echo "Images matching pattern $IMAGE_PATTERN removed."
+else
+    echo "No images matching pattern $IMAGE_PATTERN exist."
+fi
+
 # Build the Docker image.
 docker build -t ${IMAGE_NAME}:${VERSION}-${ENVIRONMENT}-${TIMESTAMP}-${COMMIT_SHA} .
 
+# Run the Docker image.
+docker run -d --name ${CONTAINER_NAME} -p 3000:3000 ${IMAGE_NAME}:${VERSION}-${ENVIRONMENT}-${TIMESTAMP}-${COMMIT_SHA}
+
+# Wait for the container to start. sleep for 5 seconds
+sleep 5
+
+# Define the URL of the NestJS API endpoint to test
+API_URL="http://localhost:3000/messages"
+
+# Make a GET request to the API endpoint
+response=$(curl -s -o /dev/null -w "%{http_code}" "$API_URL")
+
+# Check the HTTP response code
+if [ "$response" -eq 200 ]; then
+    echo "API $API_URL endpoint is reachable."
+else
+    echo "Unable to reach API endpoint. HTTP response code: $response"
+fi
+
+# Define your Docker Hub username and password
+USERNAME="bayareala8s"
+TOKEN="__________"
+
+# Login to the Docker registry
+docker login --username=$USERNAME --password=$TOKEN
+
+
+# Tag the Docker image with the repository name
+docker tag ${IMAGE_NAME}:${VERSION}-${ENVIRONMENT}-${TIMESTAMP}-${COMMIT_SHA} $USERNAME/${IMAGE_NAME}:${VERSION}-${ENVIRONMENT}-${TIMESTAMP}-${COMMIT_SHA}
+
+
+sleep 5
+
 # Push the Docker image to the registry.
-docker push ${IMAGE_NAME}:${VERSION}-${ENVIRONMENT}-${TIMESTAMP}-${COMMIT_SHA}
+docker push $USERNAME/${IMAGE_NAME}:${VERSION}-${ENVIRONMENT}-${TIMESTAMP}-${COMMIT_SHA}
 
 ```
 
