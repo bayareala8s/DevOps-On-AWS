@@ -18,7 +18,7 @@ CMD ["npm", "run", "start:dev"]
 
 2. Build the Docker image using the following command:
 
-docker build -t messages-app .
+docker build -t messages-app:1.0.0-dev-commit-SHA .
 
 3. Run the Docker image using the following command:
 
