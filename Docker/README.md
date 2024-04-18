@@ -26,7 +26,8 @@ docker run -p 3000:3000 messages-app
 
 ### Bash script that will create a Docker image with the following naming convention:
 
-- <image-name>:<major>.<minor>.<patch>-<environment>-<timestamp>-<commit-SHA>
+- image-name:major.minor.patch-environment-timestamp-commit-SHA
+./create-docker-image.sh messages-app-container messages-app-image 1.0.0 dev abc123
 
 ```bash
 #!/bin/bash
