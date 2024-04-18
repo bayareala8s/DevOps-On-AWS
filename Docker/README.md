@@ -84,6 +84,77 @@ docker run -p 3000:3000 messages-app
   docker pull my-registry.example.com/my-image
 
 
+### create an AWS Fargate Cluster, run ECR docker image and test the application
+
+Below is a Bash script that creates an AWS Fargate cluster, runs a Docker image from Amazon ECR, and tests the application:
+
+```bash
+#!/bin/bash
+
+# Set variables
+CLUSTER_NAME="my-cluster"
+TASK_DEFINITION_FILE="task-definition.json"
+IMAGE_URI="<aws-account-id>.dkr.ecr.<region>.amazonaws.com/<repository-name>:<tag>"
+ENDPOINT="/<endpoint>"
+
+# Step 1: Create a Task Definition
+echo "Creating task definition..."
+cat <<EOF >$TASK_DEFINITION_FILE
+{
+  "family": "my-task-definition",
+  "containerDefinitions": [
+    {
+      "name": "my-container",
+      "image": "$IMAGE_URI",
+      "cpu": 256,
+      "memory": 512,
+      "essential": true
+    }
+  ],
+  "requiresCompatibilities": ["FARGATE"],
+  "networkMode": "awsvpc",
+  "cpu": "256",
+  "memory": "512"
+}
+EOF
+
+# Step 2: Register the Task Definition
+echo "Registering task definition..."
+aws ecs register-task-definition --cli-input-json file://$TASK_DEFINITION_FILE
+
+# Step 3: Create the ECS Cluster (if not already created)
+echo "Creating ECS cluster..."
+aws ecs create-cluster --cluster-name $CLUSTER_NAME
+
+# Step 4: Run a Task
+echo "Running task..."
+task_arn=$(aws ecs run-task --cluster $CLUSTER_NAME --task-definition my-task-definition --query 'tasks[0].taskArn' --output text)
+
+# Step 5: Wait for the Task to Complete
+echo "Waiting for the task to complete..."
+aws ecs wait tasks-stopped --cluster $CLUSTER_NAME --tasks $task_arn
+
+# Step 6: Get the Task Exit Code
+exit_code=$(aws ecs describe-tasks --cluster $CLUSTER_NAME --tasks $task_arn --query 'tasks[0].containers[0].exitCode' --output text)
+echo "Task exit code: $exit_code"
+
+# Step 7: Test the Application
+if [ $exit_code -eq 0 ]; then
+  # Task ran successfully, test the application
+  echo "Testing application..."
+  # Replace "<endpoint>" with the actual endpoint of your application
+  response=$(curl -s http://<public-ip>$ENDPOINT)
+  echo "Response from application: $response"
+else
+  echo "Task failed to run. Application testing skipped."
+fi
+```
+
+Make sure to replace the placeholders (`<aws-account-id>`, `<region>`, `<repository-name>`, `<tag>`, `<endpoint>`) with your actual values. Also, ensure that you have the necessary permissions to perform these actions.
+
+This script creates a task definition, registers it, creates an ECS cluster, runs a task with the task definition, waits for the task to complete, retrieves the exit code of the task, and tests the application if the task ran successfully. Adjust the configurations in the task definition file according to your application's requirements.
+
+
 
 
 
