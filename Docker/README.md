@@ -34,6 +34,8 @@ docker run -p 3000:3000 messages-app
 ```bash
 #!/bin/bash
 
+#./create-docker-image.sh messages-app-container messages-app-image 1.0.0 dev abc123
+
 # Get the container name from the first argument.
 CONTAINER_NAME=$1
 
@@ -91,7 +93,7 @@ docker run -d --name ${CONTAINER_NAME} -p 3000:3000 ${IMAGE_NAME}:${VERSION}-${E
 sleep 5
 
 # Define the URL of the NestJS API endpoint to test
-API_URL="http://localhost:3000/messages"
+API_URL="http://localhost:3000/api/v1/messages"
 
 # Make a GET request to the API endpoint
 response=$(curl -s -o /dev/null -w "%{http_code}" "$API_URL")
@@ -105,7 +107,7 @@ fi
 
 # Define your Docker Hub username and password
 USERNAME="bayareala8s"
-TOKEN="__________"
+TOKEN="_______________"
 
 # Login to the Docker registry
 docker login --username=$USERNAME --password=$TOKEN
