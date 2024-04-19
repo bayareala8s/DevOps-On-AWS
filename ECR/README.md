@@ -86,7 +86,7 @@ This command will return only the image tags for each image in the repository. A
 
 ### Script to deploy to ECR
 
-
+```bash
 #!/bin/bash
 
 #./deploy-to-ecr.sh us-west-2 277374794397 messages-app-image
@@ -127,6 +127,6 @@ sleep 5
 docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$DOCKER_IMAGE_TAG:$tags
 
 echo "Docker image $DOCKER_IMAGE_TAG:$tags deployed to ECR repository $ECR_REPO_NAME"
-
+```
 
   
