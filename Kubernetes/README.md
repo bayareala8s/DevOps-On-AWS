@@ -7,13 +7,17 @@ brew install kubectl
 ```
 
 After the installation, you can verify the version of kubectl:
+```
+kubectl version --client
+```
 
-client
 This will display the version of your kubectl client. If you have a Kubernetes cluster running and kubectl is configured correctly, it will also display the version of the server.
 
 If you already have kubectl installed and you want to upgrade it to the latest version, you can use the upgrade command:
 
-kubectl
+```
+brew upgrade kubectl
+```
 This will upgrade kubectl to the latest version available in Homebrew.
 
 
@@ -22,13 +26,23 @@ This will upgrade kubectl to the latest version available in Homebrew.
 
 To install the latest version of eksctl on macOS, you can use the Homebrew package manager. Here's how to do it:
 
-eksctl
+```
+brew tap weaveworks/tap
+brew install weaveworks/tap/eksctl
+```
 After the installation, you can verify the version of eksctl:
 
-version
+```
+eksctl version
+```
+
 This will display the version of your eksctl client.
 
 If you already have eksctl installed and you want to upgrade it to the latest version, you can use the upgrade command:
+
+```
+brew upgrade eksctl && brew link --overwrite eksctl
+```
 
 This will upgrade eksctl to the latest version available in Homebrew.
 
