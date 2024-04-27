@@ -2,8 +2,10 @@
 
 
 To install the latest version of kubectl on macOS, you can use the Homebrew package manager. Here's how to do it:
+```
+brew install kubectl
+```
 
-kubectl
 After the installation, you can verify the version of kubectl:
 
 client
