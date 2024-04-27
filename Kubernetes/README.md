@@ -1,4 +1,4 @@
-### Install latest version of kubectl on macOS
+## Install latest version of kubectl on macOS
 
 
 To install the latest version of kubectl on macOS, you can use the Homebrew package manager. Here's how to do it:
@@ -15,7 +15,7 @@ kubectl
 This will upgrade kubectl to the latest version available in Homebrew.
 
 
-### Install latest version of eksctl on macOS
+## Install latest version of eksctl on macOS
 
 
 To install the latest version of eksctl on macOS, you can use the Homebrew package manager. Here's how to do it:
