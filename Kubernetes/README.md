@@ -1,3 +1,37 @@
+### Install latest version of kubectl on macOS
+
+
+To install the latest version of kubectl on macOS, you can use the Homebrew package manager. Here's how to do it:
+
+kubectl
+After the installation, you can verify the version of kubectl:
+
+client
+This will display the version of your kubectl client. If you have a Kubernetes cluster running and kubectl is configured correctly, it will also display the version of the server.
+
+If you already have kubectl installed and you want to upgrade it to the latest version, you can use the upgrade command:
+
+kubectl
+This will upgrade kubectl to the latest version available in Homebrew.
+
+
+### Install latest version of eksctl on macOS
+
+
+To install the latest version of eksctl on macOS, you can use the Homebrew package manager. Here's how to do it:
+
+eksctl
+After the installation, you can verify the version of eksctl:
+
+version
+This will display the version of your eksctl client.
+
+If you already have eksctl installed and you want to upgrade it to the latest version, you can use the upgrade command:
+
+This will upgrade eksctl to the latest version available in Homebrew.
+
+
+
 ## Best practices for deploying AWS Managed Apache AirFlow with Kubernetes
 
 Deploying AWS Managed Apache AirFlow (MWAA) with Kubernetes involves several best practices:
