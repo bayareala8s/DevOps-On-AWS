@@ -1,4 +1,97 @@
-## Install latest version of kubectl on macOS
+### Amazon Elastic Kubernetes Service (Amazon EKS)
+
+Text-based architecture diagram for AWS Kubernetes (Amazon EKS), providing a granular view of each component along with specific details:
+
+```
+Amazon Elastic Kubernetes Service (Amazon EKS)
+│
+├── Control Plane (Master Node)
+│   ├── etcd: Distributed key-value store for storing Kubernetes cluster state.
+│   │   ├── Managed by AWS EKS service for high availability and durability.
+│   │   └── Provides consistent and fault-tolerant storage.
+│   │
+│   ├── API Server: Frontend for the Kubernetes control plane, serves Kubernetes API.
+│   │   ├── Managed by AWS EKS service for scalability and reliability.
+│   │   ├── Handles RESTful API requests for cluster management operations.
+│   │   └── Authenticates and authorizes requests.
+│   │
+│   ├── Scheduler: Component responsible for scheduling pods onto nodes.
+│   │   ├── Managed by AWS EKS service for optimal resource allocation and scheduling decisions.
+│   │   ├── Selects nodes based on resource requirements and constraints.
+│   │   └── Monitors node health and availability.
+│   │
+│   └── Controller Manager: Manages various controllers that regulate the state of the cluster.
+│       ├── Node Controller: Manages lifecycle and configuration of nodes.
+│       ├── Replication Controller: Maintains desired number of pod replicas.
+│       ├── Endpoint Controller: Populates endpoint objects (e.g., services) with backend pod IPs.
+│       └── Namespace Controller: Manages namespaces within the cluster.
+│
+├── Worker Nodes
+│   ├── Node 1
+│   │   ├── Kubelet: Agent that runs on each node and ensures that containers are running in a pod.
+│   │   │   ├── Managed by AWS EKS service for communication with the control plane.
+│   │   │   ├── Registers node with the API server.
+│   │   │   └── Monitors pod health and reports to API server.
+│   │   │
+│   │   ├── Kube Proxy: Network proxy that maintains network rules on nodes.
+│   │   │   ├── Managed by AWS EKS service for network routing and security.
+│   │   │   └── Manages pod-to-pod communication within the cluster.
+│   │   │
+│   │   └── Container Runtime: Software responsible for running containers.
+│   │       ├── Docker: Popular container runtime supporting Docker images.
+│   │       ├── containerd: Lightweight container runtime compatible with OCI standards.
+│   │       └── Amazon ECR: Fully managed Docker container registry for storing container images.
+│   │
+│   ├── Node 2
+│   │   ├── Kubelet
+│   │   ├── Kube Proxy
+│   │   └── Container Runtime
+│   │
+│   └── ...
+│
+├── Load Balancer
+│   ├── Amazon Elastic Load Balancer (ELB): Manages inbound traffic to the Kubernetes cluster.
+│   │   ├── Application Load Balancer (ALB): Routes HTTP/HTTPS traffic to pods based on defined rules.
+│   │   └── Network Load Balancer (NLB): Distributes TCP/UDP traffic to pods for high availability.
+│   │
+│   └── Routes Traffic to Pods: Distributes incoming traffic among pods based on defined rules.
+│
+├── Storage
+│   ├── Amazon Elastic Block Store (EBS): Provides persistent block storage for Kubernetes pods.
+│   │   ├── Dynamically provisioned volumes for pod storage.
+│   │   └── Supports both SSD and HDD storage options.
+│   │
+│   ├── Amazon Elastic File System (EFS): Fully managed file storage for Kubernetes pods.
+│   │   ├── Shared file system accessible from multiple pods.
+│   │   └── Supports NFS protocol for file sharing.
+│   │
+│   └── Amazon S3: Object storage service for storing and accessing large amounts of unstructured data.
+│       ├── Integration with Kubernetes via object storage plugins (e.g., S3FS, RioFS).
+│       └── Suitable for data-intensive applications and batch processing.
+│
+└── Networking
+    ├── Amazon Virtual Private Cloud (VPC): Isolated network environment for deploying Amazon EKS resources.
+    │   ├── Subnet Configuration: Allows grouping of resources within VPC subnets.
+    │   └── CIDR Block: Defines the IP address range for the VPC.
+    │
+    ├── Security Groups: Filter network traffic to and from Amazon EKS resources.
+    │   ├── Inbound and Outbound Rules: Define allowed and denied traffic patterns.
+    │   └── Associate with Subnets: Apply security group rules to specific subnets.
+    │
+    └── AWS App Mesh: Service mesh that provides observability, security, and traffic control for microservices running on Amazon EKS.
+        ├── Integration with Kubernetes via App Mesh Controller.
+        └── Enables fine-grained control over service-to-service communication and traffic routing.
+```
+
+**Network Topology Overview:**
+- Amazon EKS operates within an Amazon Virtual Private Cloud (VPC), providing isolated networking for EKS resources.
+- Subnet configuration allows grouping of resources within VPC subnets, facilitating network segmentation.
+- Security Groups filter traffic to and from EKS resources, enforcing security policies.
+- Amazon EKS integrates with AWS networking services such as ELB for load balancing and Amazon VPC for network isolation.
+- Storage options include Amazon EBS for block storage, Amazon EFS for file storage, and Amazon S3 for object storage, providing scalable and durable storage solutions for Kubernetes workloads.
+- AWS App Mesh integrates with Kubernetes via the App Mesh Controller, enabling advanced service mesh capabilities for microservices running on Amazon EKS.
+
+### Install latest version of kubectl on macOS
 
 
 To install the latest version of kubectl on macOS, you can use the Homebrew package manager. Here's how to do it:
